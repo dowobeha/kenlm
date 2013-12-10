@@ -20,4 +20,6 @@ util/sorted_uniform_test
 previous.sh
 jam-files/bjam
 jam-files/engine/bin.linuxx86/
+jam-files/engine/bin.macosxx86_64
 jam-files/engine/bootstrap/
+._xcode
