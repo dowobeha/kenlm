@@ -42,6 +42,7 @@ set(KENLM_UTIL_SOURCE
 add_subdirectory(double-conversion)
 add_subdirectory(stream)
 
+#source_group( lm FILES ${KENLM_UTIL_DOUBLECONVERSION_SOURCE} ${KENLM_UTIL_STREAM_SOURCE} ${KENLM_UTIL_SOURCE} )
 
 # Group these objects together for later use. 
 #
@@ -73,9 +74,6 @@ if(BUILD_TESTING)
       # Compile the executable, linking against the requisite dependent object files
       add_executable(${test} ${test}.cc $<TARGET_OBJECTS:kenlm_util>)
 
-      # Require the following compile flag
-      set_target_properties(${test} PROPERTIES COMPILE_FLAGS -DBOOST_TEST_DYN_LINK)
-  
       # Link the executable against boost
       target_link_libraries(${test} ${Boost_LIBRARIES})
 
@@ -88,7 +86,7 @@ if(BUILD_TESTING)
         set(test_params 
         )      
       endif()
-            
+        
       # Specify command arguments for how to run each unit test
       #
       # Assuming that foo was defined via add_executable(foo ...),

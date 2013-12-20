@@ -42,13 +42,15 @@ set(KENLM_SOURCE
 	vocab.cc
 )
 
-
 # Group these objects together for later use. 
 #
 # Given add_library(foo OBJECT ${my_foo_sources}),
 # refer to these objects as $<TARGET_OBJECTS:foo>
 #
 add_library(kenlm OBJECT ${KENLM_SOURCE})
+
+source_group( lm FILES ${KENLM_SOURCE} )
+
 
 # This directory has children that need to be processed
 add_subdirectory(builder)
@@ -71,6 +73,10 @@ foreach(exe ${EXE_LIST})
 
   # Link the executable against boost
   target_link_libraries(${exe} ${Boost_LIBRARIES})
+
+#  set_target_properties(${exe} PROPERTIES 
+#    FOLDER "executables"
+#  )
 
 # End for loop
 endforeach(exe)
@@ -97,7 +103,10 @@ if(BUILD_TESTING)
       add_executable(${test} ${test}.cc $<TARGET_OBJECTS:kenlm> $<TARGET_OBJECTS:kenlm_util>)
 
       # Require the following compile flag
-      set_target_properties(${test} PROPERTIES COMPILE_FLAGS -DBOOST_TEST_DYN_LINK)
+      set_target_properties(${test} PROPERTIES 
+        COMPILE_FLAGS -DBOOST_TEST_DYN_LINK
+#        FOLDER "unit_tests/lm"  
+      )
   
       # Link the executable against boost
       target_link_libraries(${test} ${Boost_LIBRARIES})

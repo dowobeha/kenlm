@@ -25,6 +25,14 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 
+# Tell CMake to enable compiling KenLM unit test code
+enable_testing()
+
+#set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+#FILE(GLOB all */*.*)
+#source_group( foobar FILES ${all})
+
+#source_group( lm REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/lm/.*" )
 # We need boost
 find_package(Boost 1.36.0 REQUIRED COMPONENTS
   program_options 
@@ -33,8 +41,6 @@ find_package(Boost 1.36.0 REQUIRED COMPONENTS
   unit_test_framework
 )
 
-
-enable_testing()
 
 # Define where include files live
 include_directories(

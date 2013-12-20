@@ -32,13 +32,17 @@ set(KENLM_BUILDER_SOURCE
 		${CMAKE_CURRENT_SOURCE_DIR}/print.cc
 	)
 
-
 # Group these objects together for later use. 
 #
 # Given add_library(foo OBJECT ${my_foo_sources}),
 # refer to these objects as $<TARGET_OBJECTS:foo>
 #
 add_library(kenlm_builder OBJECT ${KENLM_BUILDER_SOURCE})
+
+#      set_target_properties(kenlm_builder PROPERTIES 
+#      	FOLDER "src"
+#      )
+#source_group( lm\\builder FILES ${KENLM_BUILDER_SOURCE} )
 
 
 # Compile the executable, linking against the requisite dependent object files
@@ -47,6 +51,10 @@ add_executable(lmplz lmplz_main.cc $<TARGET_OBJECTS:kenlm> $<TARGET_OBJECTS:kenl
 # Link the executable against boost
 target_link_libraries(lmplz ${Boost_LIBRARIES})
 
+#source_group( src FILES lmplz_main.cc )
+#set_target_properties(lmplz PROPERTIES 
+#	FOLDER "executables"
+#)
 
 if(BUILD_TESTING)
 
@@ -63,7 +71,10 @@ if(BUILD_TESTING)
       add_executable(${test} ${test}.cc $<TARGET_OBJECTS:kenlm> $<TARGET_OBJECTS:kenlm_builder> $<TARGET_OBJECTS:kenlm_util>)
 
       # Require the following compile flag
-      set_target_properties(${test} PROPERTIES COMPILE_FLAGS "-DBOOST_TEST_DYN_LINK -DBOOST_PROGRAM_OPTIONS_DYN_LINK")
+      set_target_properties(${test} PROPERTIES 
+      	COMPILE_FLAGS "-DBOOST_TEST_DYN_LINK -DBOOST_PROGRAM_OPTIONS_DYN_LINK"
+#      	FOLDER "unit_tests/lm_builder"
+      )
   
       # Link the executable against boost
       target_link_libraries(${test} ${Boost_LIBRARIES})

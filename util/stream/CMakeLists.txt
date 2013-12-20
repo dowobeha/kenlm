@@ -51,7 +51,10 @@ if(BUILD_TESTING)
       add_executable(${test} ${test}.cc $<TARGET_OBJECTS:kenlm_util>)
 
       # Require the following compile flag
-      set_target_properties(${test} PROPERTIES COMPILE_FLAGS -DBOOST_TEST_DYN_LINK)
+      set_target_properties(${test} PROPERTIES 
+        COMPILE_FLAGS -DBOOST_TEST_DYN_LINK
+#        FOLDER "unit_tests/util/stream"
+      )
   
       # Link the executable against boost
       target_link_libraries(${test} ${Boost_LIBRARIES})
