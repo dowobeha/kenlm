@@ -31,7 +31,7 @@ enable_testing()
 #set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 #FILE(GLOB all */*.*)
 #source_group( foobar FILES ${all})
-
+#set(Boost_DEBUG 1)
 #source_group( lm REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/lm/.*" )
 # We need boost
 find_package(Boost 1.36.0 REQUIRED COMPONENTS
@@ -41,11 +41,15 @@ find_package(Boost 1.36.0 REQUIRED COMPONENTS
   unit_test_framework
 )
 
+MESSAGE("Boost information:") 
+MESSAGE("  Boost_INCLUDE_DIR: ${Boost_INCLUDE_DIR}") 
+MESSAGE("  Boost_LIBRARIES: ${Boost_LIBRARIES}") 
+MESSAGE("  Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}") 
 
 # Define where include files live
 include_directories(
   ${PROJECT_SOURCE_DIR} 
-  ${Boost_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIR}
 )
 
 
