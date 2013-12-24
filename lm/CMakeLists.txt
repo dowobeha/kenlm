@@ -61,8 +61,10 @@ add_subdirectory(filter)
 # Explicitly list the executable files to be compiled
 set(EXE_LIST
   query
+  query_interp
   fragment
   build_binary
+  renorm_backoff
 )
 
 # Iterate through the executable list   
