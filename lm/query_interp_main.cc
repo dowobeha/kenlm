@@ -86,17 +86,44 @@ int main(int argc, char *argv[]) {
     // Output variable, which we will ignore
     State nextState;  
 	  
-    // Query the LM
+    // Query the LM, with (num_words-1) words in the history
     FullScoreReturn ret = 
       model.FullScoreForgotState(&(indices[1]), &(indices[num_words]), indices[0], nextState);
     
 	// Continue the running example:
 	//
-	// The call to FullScoreForgotState obtains p( e | a b c d )
+	// The above call to FullScoreForgotState obtains p( e | a b c d )
+
 	  
+	// If the original line specified a unigram,
+	// then the history was already empty in the above call.
+	//
+	// It only makes sense to truncate the history if num_words >= 2
+	//
+	// For example, assume the input line had been "x"
+	// In the above call to FullScoreForgotState, the history would already be empty,
+    // with the call obtaining p( x )
+	// 
+	// In such a case, there would be no valid way to truncate a history whose length is already zero
+	if (num_words >= 2) { 
+		
+	  // Query the LM, with (num_words-2) words in the history
+	  FullScoreReturn ret2 = 
+        model.FullScoreForgotState(&(indices[1]), &(indices[num_words-1]), indices[0], nextState);
+
+	  // Continue the running example:
+	  //
+	  // The above call to FullScoreForgotState obtains p( e | b c d )		
+		
+	  // Report the scores
+	  std::cout << ret.prob << '\t' << ret2.prob << std::endl;
+		
+	} else {
 	  
-    // Report the score
-    std::cout << ret.prob << std::endl;
+      // Report the score
+      std::cout << ret.prob << std::endl;
+		
+	}
     
   }
   
