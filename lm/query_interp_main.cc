@@ -130,3 +130,36 @@ int main(int argc, char *argv[]) {
   infile.close();
 
 }
+
+
+
+/*
+ 
+ More detailed example:
+ 
+ w = "a b"
+ 
+ n = 2
+ 
+ w_1 = a
+ w_2 = b
+ 
+ b( w_1^(n-1) ) =
+ b( w_1^(2-1) ) =
+ b( w_1^(1)   )
+ 
+ 
+ p( w_n | w_1^(n-1) ) =
+ p( w_2 | w_1^(2-1) ) =
+ p( w_2 | w_1^(1)   ) =
+ p( w_2 | w_1       ) =
+ p(  b  |   a  )
+ 
+ 
+ p( w_n | w_2^(n-1) ) = 
+ p( w_2 | w_2^(2-1) ) =
+ p( w_2 | w_2^(1)   ) =
+ p( w_2 )             =
+ p(  b  )
+
+*/
